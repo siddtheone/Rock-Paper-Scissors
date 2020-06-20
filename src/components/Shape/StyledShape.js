@@ -52,7 +52,8 @@ export function styleForShape(shape, won) {
     box-shadow: ${defaultShadow.join(', ')};
     border: var(--borderCFG) solid ${border};
     @media (min-width: 500px) {
-      border: 20px solid ${border};
+      --borderCFG: 20px;
+      border: calc(var(--borderCFG)) solid ${border};
     }
   `;
 }
@@ -64,7 +65,7 @@ const StyledShape = styled.div`
   --borderCFG: 10px;
 
   .shape__container {
-    transition: 0.5;
+    transition: 0.5s;
     border-radius: 50%;
     ${({shape, won}) => styleForShape(shape, won)};
     background: ${({shape}) => `white url(${shapeSpecs[shape].img})`};
