@@ -12,51 +12,34 @@ export default function Common() {
         childNodes
       }
     } = circle;
-    let angle = 90;
+    let angle = SHAPES.length === 3 ? -30 : - 90;
     const pie = 360 / childNodes.length;
 
     for(let s of childNodes) {
       angle += pie;
-      s.style.transform = `rotate(${angle}deg) translate(${circle.current.clientWidth / 2}px) rotate(-${angle}deg)`;
+
+      s.style.transform = `rotate(${angle}deg) translate(${circle.current.clientWidth / 2}px) rotate(${-angle}deg)`;
+      console.log(`rotate(${angle}deg) translate(${circle.current.clientWidth / 2}px) rotate(-${angle}deg)`)
     }
   }
 
   useEffect(() => {
-    // const ciclegraph = circle.current;
-    // const circleElements = ciclegraph.childNodes;
-
-    // let angle = 90;
-    // let dangle = 360 / circleElements.length;
-
-    // for (let i = 0; i < circleElements.length; i++) {
-    //   let circle = circleElements[i];
-    //   angle += dangle;
-    //   circle.style.transform = `rotate(${angle}deg) translate(${ciclegraph.clientWidth /
-    //     2}px) rotate(-${angle}deg)`;
-    // }
     placeShapes();
     window.addEventListener('resize', placeShapes);
 
     return () => window.removeEventListener('resize', placeShapes);
   }, []);
 
+  const shapePlacement = SHAPES.length === 3 ? [0, 1, 2] : [1, 0, 3, 4, 2];
+
   return (
     <StyledCommon>
       <div className="game__container" ref={circle}>
-        {/* <div className="game__shape">
-          <Shape shape={0} />
-        </div>
-        <div className="game__shape">
-          <Shape shape={1} />
-        </div>
-        <div className="game__shape">
-          <Shape shape={2} />
-        </div> */}
         {
-          SHAPES.map((s, i) => {
+          shapePlacement.map((s, i) => {
             return (
               <div className="game__shape" key={s}>
-                <Shape shape={i} />
+                <Shape shape={s} />
               </div>
             )
           })

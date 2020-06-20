@@ -40,7 +40,7 @@ export function styleForShape(shape, won) {
     border, shadow
   } = shapeSpecs[shape];
 
-  let defaultShadow = [`0px 10px 1px ${shadow}`, `0px 10px 1px rgba(0, 0, 0, .1) inset`];
+  let defaultShadow = [`0px calc(var(--borderCFG) / 2) 1px ${shadow}`, `0px calc(var(--borderCFG) / 2) 1px rgba(0, 0, 0, .1) inset`];
   if (won) {
     defaultShadow.push(
       `0px 0px 1px 40px rgba(255, 255, 255, .3)`,
@@ -50,7 +50,10 @@ export function styleForShape(shape, won) {
   }
   return `
     box-shadow: ${defaultShadow.join(', ')};
-    border: 20px solid ${border};
+    border: var(--borderCFG) solid ${border};
+    @media (min-width: 500px) {
+      border: 20px solid ${border};
+    }
   `;
 }
 
@@ -58,8 +61,10 @@ const StyledShape = styled.div`
   padding-bottom: 100%;
   position: relative;
   margin-bottom: 1em;
+  --borderCFG: 10px;
 
   .shape__container {
+    transition: 0.5;
     border-radius: 50%;
     ${({shape, won}) => styleForShape(shape, won)};
     background: ${({shape}) => `white url(${shapeSpecs[shape].img})`};
