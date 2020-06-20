@@ -5,14 +5,6 @@ import Scissors from '../../images/icon-scissors.svg';
 import Lizard from '../../images/icon-lizard.svg';
 import Spock from '../../images/icon-spock.svg';
 
-/*
-- Scissors Gradient: hsl(39, 89%, 49%) to hsl(40, 84%, 53%)
-- Paper Gradient: hsl(230, 89%, 62%) to hsl(230, 89%, 65%)
-- Rock Gradient: hsl(349, 71%, 52%) to hsl(349, 70%, 56%)
-- Lizard Gradient: hsl(261, 73%, 60%) to hsl(261, 72%, 63%)
-- Cyan: hsl(189, 59%, 53%) to hsl(189, 58%, 57%)
-*/
-
 const shapeSpecs = [{
   img: Rock,
   border: 'hsl(349, 70%, 56%)',
@@ -67,15 +59,15 @@ const StyledShape = styled.div`
   .shape__container {
     transition: 0.5s;
     border-radius: 50%;
-    ${({shape, won}) => styleForShape(shape, won)};
-    background: ${({shape}) => `white url(${shapeSpecs[shape].img})`};
+    ${({shape, won}) => shape !== -1 && styleForShape(shape, won)};
+    background: ${({shape}) => shape !== -1 ? `white url(${shapeSpecs[shape].img})` : 'rgb(26, 41, 70)'};
     position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
     background-size: 65%;
-    background-position: ${({shape}) => shape === 4 ? '70% center' : 'center'};
+    background-position: ${({shape}) => shape !== -1 && shape === 4 ? '70% center' : 'center'};
     background-repeat: no-repeat;
   }
 `;

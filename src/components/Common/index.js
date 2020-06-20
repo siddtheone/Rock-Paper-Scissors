@@ -3,7 +3,7 @@ import StyledCommon from './StyledCommon';
 import {SHAPES} from '../../constants';
 import Shape from '../Shape';
 
-export default function Common() {
+export default function Common({onUserSelect}) {
   const circle = useRef(null);
 
   function placeShapes() {
@@ -19,7 +19,6 @@ export default function Common() {
       angle += pie;
 
       s.style.transform = `rotate(${angle}deg) translate(${circle.current.clientWidth / 2}px) rotate(${-angle}deg)`;
-      console.log(`rotate(${angle}deg) translate(${circle.current.clientWidth / 2}px) rotate(-${angle}deg)`)
     }
   }
 
@@ -39,16 +38,12 @@ export default function Common() {
           shapePlacement.map((s, i) => {
             return (
               <div className="game__shape" key={s}>
-                <Shape shape={s} />
+                <Shape shape={s} onClick={onUserSelect} />
               </div>
             )
           })
         }
       </div>
-
-      {/* <Shape shape={0} won/>
-      <Shape shape={1} />
-      <Shape shape={2} /> */}
     </StyledCommon>
   )
 }

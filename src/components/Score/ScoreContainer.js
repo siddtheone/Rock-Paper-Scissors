@@ -1,9 +1,11 @@
-import React from 'react';
+import React, {useContext} from 'react';
+import {globalContext} from '../../store';
 import Score from './';
 
 export default function ScoreContainer() {
-  // Connect to redux
+  const [{score}] = useContext(globalContext);
+
   return (
-    <Score score={0} />
+    <Score score={score} />
   )
 }
